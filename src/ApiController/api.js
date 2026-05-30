@@ -1,40 +1,22 @@
-
 export const Login = async (username, password) => {
-    if (!username || !password) {
-        throw new Error('Username and password are required');
-    }
+  const host = (import.meta.env.VITE_API_HOST || "http://127.0.0.1:8000").replace(/\/+$/, "");
 
-    // if (username === 'admin@railways.in' && password === 'admin') {
-    //     return { success: true, token: 'S324D3D23AFF23' };
-    // }
-    try {
-        const baseUrl = import.meta.env.VITE_BACKEND_URL || import.meta.env.BACKEND_URL || '';
-        const response = await fetch(`${baseUrl}login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        });
+  console.log("API Host:", host);
 
-        const responseText = await response.text();
-        let data = null;
+  const res = await fetch(`${host}/users/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
 
-        if (responseText) {
-            try {
-                data = JSON.parse(responseText);
-            } catch {
-                data = null;
-            }
-        }
+  if (!res.ok) {
+    throw new Error("Invalid username or password");
+  }
 
-        if (!response.ok) {
-            throw new Error(data?.message || data?.error || responseText || 'Login failed');
-        }
+  const user = await res.json();
+  localStorage.setItem("user", JSON.stringify(user));
 
-        return data;
-    } catch (error) {
-        console.error('Error during login:', error);
-        throw error;
-    }
-}
+  return user;
+};

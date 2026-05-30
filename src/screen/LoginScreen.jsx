@@ -55,9 +55,10 @@ export default function LoginScreen() {
         try {
             const loginResult = await Login(username, password);
             console.log('Login result:', loginResult);
+            
             if (loginResult) {
-                localStorage.setItem('authToken', loginResult.token);
-                localStorage.setItem('user', loginResult.user ? JSON.stringify(loginResult.user) : '{}');
+                localStorage.setItem('authToken', loginResult.access_token);
+                localStorage.setItem('user', loginResult? JSON.stringify(loginResult) : '{}');
                 window.location.href = '/dashboard';
                 return;
             }
