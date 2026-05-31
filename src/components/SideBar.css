@@ -15,3 +15,64 @@
   display: block;
   object-fit: contain;
 }
+
+
+.sidebar-item-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-link-label {
+    flex: 1;
+}
+
+.sidebar-arrow {
+    margin-left: auto;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    transition: transform 0.2s ease;
+}
+
+/* Submenu container */
+.sidebar-submenu {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    border-left: 3px solid var(--primary-color, #f97316);
+    margin-left: 1rem;
+    border-radius: 0 0 6px 6px;
+    overflow: hidden;
+    animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Submenu buttons */
+.sidebar-submenu-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    opacity: 0.85;
+    transition: background 0.15s, opacity 0.15s;
+}
+
+.sidebar-submenu-link:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    opacity: 1;
+}
+
+.sidebar-submenu-link.active {
+    opacity: 1;
+    font-weight: 600;
+    color: var(--primary-color, #f97316);
+}
