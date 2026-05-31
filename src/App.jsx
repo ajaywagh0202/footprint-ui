@@ -4,6 +4,7 @@ import LoginScreen from './screen/LoginScreen'
 import DashboardScreen from './screen/DashboardScreen'
 import ChatBotScreen from './screen/ChatBotScreen'
 import MasterTableScreen from './screen/MasterTableScreen'
+import StationTableScreen from './screen/StationTableScreen'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/dashboard" element={<DashboardScreen />} />
         <Route path="/chatbot" element={<ChatBotScreen />} />
         <Route path='/master' element={<MasterTableScreen />} />
+        <Route path='/station' element={<StationTableScreen />} />
       </Routes>
     </BrowserRouter>
   )

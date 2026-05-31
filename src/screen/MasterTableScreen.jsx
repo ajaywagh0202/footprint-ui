@@ -3,6 +3,7 @@ import { useState } from 'react';
 import SideBar from '../components/SideBar';
 import ZoneTable from '../components/tables/ZoneTable';
 import DivisionTable from '../components/tables/DivisionTable';
+import StationTable from '../components/tables/StationTable';
 import './DashboardScreen.css';
 import './MasterTableScreen.css';
 
@@ -26,10 +27,10 @@ const masterCards = [
     {
         key: 'station',
         label: 'Station Master',
-        sub: 'Coming Soon',
+        sub: 'Manage Railway Stations',
         icon: 'fa-solid fa-building-train',
-        color: '#9CA3AF',
-        enabled: false
+        color: '#F59E0B',
+        enabled: true
     },
     {
         key: 'employee',
@@ -85,6 +86,10 @@ export default function MasterTableScreen() {
 
                 {activeTable === 'division' && (
                     <DivisionTable onClose={() => setActiveTable(null)} />
+                )}
+
+                {activeTable === 'station' && (
+                    <StationTable onClose={() => setActiveTable(null)} />
                 )}
             </main>
         </div>
