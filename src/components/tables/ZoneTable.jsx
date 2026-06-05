@@ -88,7 +88,7 @@ export default function ZoneTable({ onClose }) {
                         columnDefs={columnDefs}
                         defaultColDef={defaultColDef}
                         pagination
-                        paginationPageSize={20}
+                        paginationPageSize={50}
                         animateRows
                         enableCellTextSelection
                     />

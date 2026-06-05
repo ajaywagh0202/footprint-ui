@@ -17,6 +17,22 @@ const createCaptcha = () => {
     };
 };
 
+const getUserCode = (user = {}) => (
+    user.userCode ||
+    user.user_code ||
+    user.usercode ||
+    user.code ||
+    user.user_id ||
+    user.userId ||
+    user.id ||
+    user.employee_code ||
+    user.employeeId ||
+    user.employee_id ||
+    user.username ||
+    user.email ||
+    ''
+);
+
 export default function LoginScreen() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -36,7 +52,16 @@ export default function LoginScreen() {
     useEffect(() => {
         // Check if user is already authenticated
         const token = localStorage.getItem('authToken');
-        if (token) {
+        let storedUser = {};
+
+        try {
+            storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+        } catch {
+            storedUser = {};
+        }
+
+        const userCode = localStorage.getItem('userCode') || getUserCode(storedUser);
+        if (token && userCode) {
             // Optionally, verify token with backend here
             window.location.href = '/dashboard';
         }
@@ -54,10 +79,14 @@ export default function LoginScreen() {
 
         try {
             const loginResult = await Login(username, password);
-            console.log('Login result:', loginResult);
+           
             if (loginResult) {
-                localStorage.setItem('authToken', loginResult.token);
-                localStorage.setItem('user', loginResult.user ? JSON.stringify(loginResult.user) : '{}');
+                localStorage.setItem('authToken', loginResult.access_token);
+                const user = loginResult.user || loginResult.data?.user || loginResult;
+                const userCode = getUserCode(user || {}) || username.trim();
+
+                localStorage.setItem('user', user ? JSON.stringify(user) : '{}');
+                localStorage.setItem('userCode', userCode);
                 window.location.href = '/dashboard';
                 return;
             }

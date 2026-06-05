@@ -5,7 +5,7 @@ export const Login = async (username, password) => {
     }
     try {
         const baseUrl = import.meta.env.VITE_BACKEND_URL || import.meta.env.BACKEND_URL || '';
-        const response = await fetch(`${baseUrl}login`, {
+        const response = await fetch(`${baseUrl}users/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

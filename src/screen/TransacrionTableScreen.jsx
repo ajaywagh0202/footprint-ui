@@ -1,40 +1,22 @@
 
 import { useState } from 'react';
 import SideBar from '../components/SideBar';
-import ZoneTable from '../components/tables/ZoneTable';
-import DivisionTable from '../components/tables/DivisionTable';
-import StationTable from '../components/tables/StationTable';
+import TrainScheduleTable from '../components/tables/TrainScheduleTable';
 import './DashboardScreen.css';
 import './MasterTableScreen.css';
 
-const masterCards = [
+const transactionCards = [
     {
-        key: 'zone',
-        label: 'Zone Master',
-        sub: 'Manage Railway Zones',
+        key: 'train_schedule',
+        label: 'Train Schedule',
+        sub: 'Manage Train Schedules',
         icon: 'fa-solid fa-map',
         color: '#2D9966',
         enabled: true
     },
-    {
-        key: 'division',
-        label: 'Division Master',
-        sub: 'Manage Railway Divisions',
-        icon: 'fa-solid fa-code-branch',
-        color: '#615FFF',
-        enabled: true
-    },
-    {
-        key: 'station',
-        label: 'Station Master',
-        sub: 'Manage Railway Stations',
-        icon: 'fa-solid fa-map-location-dot',
-        color: '#F59E0B',
-        enabled: true
-    },
 ];
 
-export default function MasterTableScreen() {
+export default function TransactionTableScreen() {
     const [activeTable, setActiveTable] = useState(null);
 
     return (
@@ -44,13 +26,13 @@ export default function MasterTableScreen() {
             <main className="dashboard-main">
                 <header className="dashboard-header">
                     <div>
-                        <h1>Master Dashboard</h1>
+                        <h1>Transaction Dashboard</h1>
                     </div>
                 </header>
 
                 {activeTable === null && (
                     <section className="master-cards-grid" aria-label="Railway data master modules">
-                        {masterCards.map((card) => (
+                        {transactionCards.map((card) => (
                             <button
                                 key={card.key}
                                 type="button"
@@ -72,16 +54,8 @@ export default function MasterTableScreen() {
                     </section>
                 )}
 
-                {activeTable === 'zone' && (
-                    <ZoneTable onClose={() => setActiveTable(null)} />
-                )}
-
-                {activeTable === 'division' && (
-                    <DivisionTable onClose={() => setActiveTable(null)} />
-                )}
-
-                {activeTable === 'station' && (
-                    <StationTable onClose={() => setActiveTable(null)} />
+                {activeTable === 'train_schedule' && (
+                    <TrainScheduleTable onClose={() => setActiveTable(null)} />
                 )}
             </main>
         </div>

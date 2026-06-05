@@ -30,5 +30,21 @@ export const getTableData = async (path) => {
         }
     });
 
-    return Array.isArray(response.data) ? response.data : [];
+    if (Array.isArray(response.data)) {
+        return response.data;
+    }
+
+    if (Array.isArray(response.data?.data)) {
+        return response.data.data;
+    }
+
+    if (Array.isArray(response.data?.results)) {
+        return response.data.results;
+    }
+
+    if (Array.isArray(response.data?.items)) {
+        return response.data.items;
+    }
+
+    return [];
 };

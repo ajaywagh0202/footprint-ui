@@ -14,9 +14,10 @@ export default function StationTable({ onClose }) {
 
     const columnDefs = useMemo(() => [
         { field: 'station', headerName: 'Station Name', flex: 2 },
-        { field: 'station_code', headerName: 'Code', flex: 1 },
-        { field: 'station_type', headerName: 'Type', flex: 1 },
+        { field: 'station_code', headerName: 'Station Code', flex: 1 },
         { field: 'station_category', headerName: 'Category', flex: 1 },
+        { field: 'division_name', headerName: 'Division', flex: 1 },
+        { field: 'zone_name', headerName: 'Zone', flex: 1 },
         { field: 'district', headerName: 'District', flex: 1 },
         { field: 'state', headerName: 'State', flex: 1 }
     ], []);
@@ -36,7 +37,7 @@ export default function StationTable({ onClose }) {
             try {
                 setLoading(true);
                 setError('');
-                const data = await getTableData('/stations/');
+                const data = await getTableData('/stations');
 
                 if (isMounted) {
                     setRowData(data);
@@ -63,7 +64,7 @@ export default function StationTable({ onClose }) {
         <section className="master-table-panel">
             <div className="table-header-bar">
                 <div className="table-header-left">
-                    <i className="fa-solid fa-building-train"></i>
+                    <i className="fa-solid fa-map-location-dot"></i>
                     <h2>Station Master</h2>
                     <span className="row-count">{rowData.length} records</span>
                 </div>
@@ -90,7 +91,7 @@ export default function StationTable({ onClose }) {
                         columnDefs={columnDefs}
                         defaultColDef={defaultColDef}
                         pagination
-                        paginationPageSize={20}
+                        paginationPageSize={50}
                         animateRows
                         enableCellTextSelection
                     />
